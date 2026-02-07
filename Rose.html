@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Happy Rose Day ❤️</title>
+
+<style>
+    body {
+        margin: 0;
+        font-family: 'Poppins', sans-serif;
+        background: linear-gradient(135deg, #ff758c, #ff7eb3);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        overflow: hidden;
+    }
+
+    .card {
+        background: white;
+        padding: 30px;
+        border-radius: 20px;
+        text-align: center;
+        width: 320px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        z-index: 2;
+    }
+
+    h2 {
+        color: #ff4d6d;
+        margin-bottom: 10px;
+    }
+
+    p {
+        font-size: 15px;
+        color: #333;
+    }
+
+    .buttons {
+        margin-top: 20px;
+        position: relative;
+        height: 60px;
+    }
+
+    button {
+        padding: 10px 20px;
+        font-size: 16px;
+        border: none;
+        border-radius: 25px;
+        cursor: pointer;
+        position: absolute;
+        transition: 0.3s;
+    }
+
+    #yesBtn {
+        background: #ff4d6d;
+        color: white;
+        left: 40px;
+    }
+
+    #noBtn {
+        background: #ccc;
+        right: 40px;
+    }
+
+    .message {
+        margin-top: 15px;
+        font-weight: bold;
+        color: #ff1744;
+        min-height: 20px;
+    }
+
+    /* Proposal card */
+    .proposal {
+        display: none;
+    }
+
+    .proposal img {
+        width: 100%;
+        border-radius: 15px;
+        margin-top: 15px;
+    }
+
+    /* Rose falling */
+    .rose {
+        position: fixed;
+        top: -50px;
+        font-size: 24px;
+        animation: fall linear forwards;
+        pointer-events: none;
+        z-index: 1;
+    }
+
+    @keyframes fall {
+        to {
+            transform: translateY(110vh) rotate(360deg);
+            opacity: 0;
+        }
+    }
+</style>
+</head>
+
+<body>
+
+<!-- MAIN CARD -->
+<div class="card" id="mainCard">
+    <h2>🌹 Happy Rose Day 🌹</h2>
+    <p>Naa Rose kudukka poren accept pannikuringala❤️</p>
+
+    <div class="buttons">
+        <button id="yesBtn">YES 💖</button>
+        <button id="noBtn">NO 🥹</button>
+    </div>
+
+    <div class="message" id="msg"></div>
+</div>
+
+<!-- PROPOSAL CARD -->
+<div class="card proposal" id="proposalCard">
+    <h2>💖 Happy Rose Day di thangame 🌹</h2>
+
+    <img src="pngtree-boy-gives-a-girl-a-bouquet-of-roses-the-concept-for-png-image_11317477.png"
+         alt="Anime Proposal">
+
+    <p>Always yours ❤️🌹</p>
+</div>
+
+<script>
+let noClickCount = 0;
+
+const noBtn = document.getElementById("noBtn");
+const yesBtn = document.getElementById("yesBtn");
+const msg = document.getElementById("msg");
+
+// Rose creation
+function createRose() {
+    const rose = document.createElement("div");
+    rose.className = "rose";
+    rose.innerText = "🌹";
+    rose.style.left = Math.random() * 100 + "vw";
+    rose.style.animationDuration = (3 + Math.random() * 3) + "s";
+    rose.style.fontSize = (18 + Math.random() * 22) + "px";
+    document.body.appendChild(rose);
+    setTimeout(() => rose.remove(), 6000);
+}
+
+// NO button logic (looping cute apologies)
+noBtn.addEventListener("click", () => {
+    noClickCount++;
+
+    if (noClickCount === 1) {
+        msg.innerText = "apdi solla koodadhu di thangam 🥺";
+    } 
+    else if (noClickCount === 2) {
+        msg.innerText = "naa paavam laa 🥺";
+    } 
+    else {
+        // shift buttons
+        yesBtn.style.right = "20px";
+        yesBtn.style.left = "auto";
+
+        noBtn.style.left = "20px";
+        noBtn.style.right = "auto";
+
+        noClickCount = 0; // reset loop
+    }
+});
+
+// YES button logic
+yesBtn.addEventListener("click", () => {
+    document.getElementById("mainCard").style.display = "none";
+    document.getElementById("proposalCard").style.display = "block";
+
+    setInterval(createRose, 200);
+});
+</script>
+
+</body>
+</html>
